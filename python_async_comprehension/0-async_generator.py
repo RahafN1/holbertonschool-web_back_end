@@ -5,7 +5,7 @@ import random
 from typing import Generator
 
 
-async def async_generator() -> Generator[float, None, None]: # pyright: ignore[reportInvalidTypeForm]
+async def async_generator() -> Generator[float, None, None]:
     """Asynchronously generate 10 random numbers.
 
     Loops 10 times, asynchronously waiting 1 second each time,
