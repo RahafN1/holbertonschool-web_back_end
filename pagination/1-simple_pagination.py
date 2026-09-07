@@ -1,18 +1,13 @@
 #!/usr/bin/env python3
-"""Simple pagination
+"""
+Module that implements simple pagination over a dataset of
+popular baby names read from a CSV file.
 """
 import csv
 import math
 from typing import List, Tuple
 
-
-def index_range(page: int, page_size: int) -> Tuple[int, int]:
-    """Return a tuple of start and end index for the given pagination
-    parameters.
-    """
-    start_index = (page - 1) * page_size
-    end_index = start_index + page_size
-    return (start_index, end_index)
+index_range = __import__('0-simple_helper_function').index_range
 
 
 class Server:
@@ -21,6 +16,7 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """Initialize a new Server instance with an empty cache."""
         self.__dataset = None
 
     def dataset(self) -> List[List]:
@@ -35,8 +31,18 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """Return the page of the dataset corresponding to the given
-        page and page_size arguments.
+        """Return the requested page of the dataset.
+
+        Args:
+            page (int): The page number to retrieve (1-indexed).
+                Must be a positive integer.
+            page_size (int): The number of items per page.
+                Must be a positive integer.
+
+        Returns:
+            List[List]: The list of rows corresponding to the
+            requested page. Returns an empty list if the page
+            or page_size are out of range for the dataset.
         """
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
