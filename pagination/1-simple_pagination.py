@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""حل بسيط للـ pagination (Simple pagination)
-"""
+"""Simple helper function for pagination."""
+
 import csv
 import math
 from typing import List, Tuple
