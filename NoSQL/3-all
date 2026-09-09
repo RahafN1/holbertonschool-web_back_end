@@ -1,2 +1,2 @@
-//all documents 
+// All documents 
 db.school.find();
