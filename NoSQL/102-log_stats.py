@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Script that provides stats about Nginx logs stored in MongoDB."""
+"""Advanced script that provides stats about Nginx logs stored in MongoDB"""
 from pymongo import MongoClient
 
 
@@ -8,36 +8,21 @@ if __name__ == "__main__":
     nginx_collection = client.logs.nginx
 
     print("{} logs".format(nginx_collection.count_documents({})))
-
     print("Methods:")
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     for method in methods:
         count = nginx_collection.count_documents({"method": method})
         print("\tmethod {}: {}".format(method, count))
 
-    status_check = nginx_collection.count_documents({
-        "method": "GET",
-        "path": "/status"
-    })
+    status_check = nginx_collection.count_documents(
+        {"method": "GET", "path": "/status"})
     print("{} status check".format(status_check))
 
     print("IPs:")
-    pipeline = [
-        {
-            "$group": {
-                "_id": "$ip",
-                "count": {"$sum": 1}
-            }
-        },
-        {
-            "$sort": {
-                "count": -1
-            }
-        },
-        {
-            "$limit": 10
-        }
-    ]
-
-    for ip in nginx_collection.aggregate(pipeline):
+    ips = nginx_collection.aggregate([
+        {"$group": {"_id": "$ip", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 10}
+    ])
+    for ip in ips:
         print("\t{}: {}".format(ip["_id"], ip["count"]))
