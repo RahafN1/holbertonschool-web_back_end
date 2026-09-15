@@ -77,8 +77,8 @@ npm run full-test
 | `10-loops.js` | `for...of` loops |
 | `11-createEmployeesObject.js` | Iterators |
 | `12-createReportObject.js` | Creating a report object |
-| `13-getFullBudgetObject.js` | Iterating through report objects |
-| `100-iterateThroughObject.js` | Advanced object iteration |
+| `100-getFullBudgetObject.js` | Iterating through report objects |
+| `101-iterateThroughObject.js` | Advanced object iteration |
 
 ## Author
 Rahaf Alabdalh
